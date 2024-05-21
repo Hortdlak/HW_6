@@ -2,9 +2,9 @@ import java.util.Objects;
 
 public class Laptop {
     private String brand;
-    private int ram; // ОЗУ в ГБ
-    private int storage; // Объем ЖД в ГБ
-    private String os; // Операционная система
+    private int ram; 
+    private int storage; 
+    private String os; 
     private String color;
 
     public Laptop(String brand, int ram, int storage, String os, String color) {
@@ -48,10 +48,17 @@ public class Laptop {
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
+        
         Laptop laptop = (Laptop) o;
-        return ram == laptop.ram && storage == laptop.storage && Objects.equals(brand, laptop.brand) && Objects.equals(os, laptop.os) && Objects.equals(color, laptop.color);
+
+        boolean resault = ram == laptop.ram && storage == laptop.storage 
+        && Objects.equals(brand, laptop.brand) && Objects.equals(os, laptop.os) && Objects.equals(color, laptop.color);
+
+        return resault;
     }
 
     @Override

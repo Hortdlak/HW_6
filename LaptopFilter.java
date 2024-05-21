@@ -25,48 +25,62 @@ public class LaptopFilter {
     private Map<FilterCriteria, Object> getUserCriteria() {
         Map<FilterCriteria, Object> criteria = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
+    
         try {
             boolean continueSelection = true;
-
+    
+            // Цикл для выбора критериев фильтрации
             while (continueSelection) {
+                // Выводим пользователю список доступных критериев
                 System.out.println("Введите цифру, соответствующую необходимому критерию:");
                 for (FilterCriteria criterion : FilterCriteria.values()) {
                     System.out.printf("%d - %s%n", criterion.ordinal() + 1, criterion.getDescription());
                 }
                 System.out.println("6 - Завершить выбор критериев");
-
+    
+                // Получаем выбор пользователя
                 int choice = getIntInput(scanner, 1, 6);
+    
+                // Если пользователь выбрал 6, прекращаем выбор критериев
                 if (choice == 6) {
                     continueSelection = false;
                 } else {
+                    // Иначе обрабатываем выбранный критерий
                     FilterCriteria selectedCriterion = FilterCriteria.values()[choice - 1];
                     switch (selectedCriterion) {
                         case BRAND:
+                            // Запрос бренда у пользователя и добавление в критерии
                             String brand = getStringInput(scanner, "бренд", collection.getAvailableBrands());
                             criteria.put(FilterCriteria.BRAND, brand);
                             break;
                         case RAM:
+                            // Запрос минимального значения ОЗУ у пользователя и добавление в критерии
                             int ram = getIntInput(scanner, "минимальное значение ОЗУ (ГБ)");
                             criteria.put(FilterCriteria.RAM, ram);
                             break;
                         case STORAGE:
+                            // Запрос минимального объема ЖД у пользователя и добавление в критерии
                             int storage = getIntInput(scanner, "минимальный объем ЖД (ГБ)");
                             criteria.put(FilterCriteria.STORAGE, storage);
                             break;
                         case OS:
+                            // Запрос операционной системы у пользователя и добавление в критерии
                             String os = getStringInput(scanner, "операционную систему", collection.getAvailableOperatingSystems());
                             criteria.put(FilterCriteria.OS, os);
                             break;
                         case COLOR:
+                            // Запрос цвета у пользователя и добавление в критерии
                             String color = getStringInput(scanner, "цвет", collection.getAvailableColors());
                             criteria.put(FilterCriteria.COLOR, color);
                             break;
                         default:
+                            // Обработка неверного выбора
                             System.out.println("Неверный выбор, попробуйте снова.");
                     }
                 }
             }
         } finally {
+            // Закрытие сканера
             scanner.close();
         }
         return criteria;
@@ -76,10 +90,10 @@ public class LaptopFilter {
         System.out.print("Введите " + prompt + ": ");
         while (!scanner.hasNextInt()) {
             System.out.println("Введите корректное числовое значение.");
-            scanner.next(); // Consume invalid input
+            scanner.next(); 
         }
         int value = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine(); 
         return value;
     }
 
@@ -88,10 +102,10 @@ public class LaptopFilter {
         while (true) {
             while (!scanner.hasNextInt()) {
                 System.out.printf("Введите число от %d до %d.%n", min, max);
-                scanner.next(); // Consume invalid input
+                scanner.next(); 
             }
             value = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
             if (value >= min && value <= max) {
                 break;
             } else {
